@@ -110,7 +110,9 @@ def _parse_rows(file_bytes: bytes) -> list[ParsedStockRow]:
             raise ApiError(400, "BAD_REQUEST", f"Row {row_num}: SKU is required", field="sku")
 
         has_aliases_col = aliases_idx is not None and aliases_idx < len(row)
-        aliases_raw = _cell_str(row[aliases_idx]) if has_aliases_col and aliases_idx is not None else ""
+        aliases_raw = (
+            _cell_str(row[aliases_idx]) if has_aliases_col and aliases_idx is not None else ""
+        )
         aliases = [a.strip() for a in aliases_raw.split(",") if a.strip() != ""]
 
         has_reorder_col = reorder_idx is not None and reorder_idx < len(row)
