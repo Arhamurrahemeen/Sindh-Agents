@@ -1,0 +1,140 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  backend-checks:
+    name: Backend — typecheck, lint, format, unit tests
+    runs-on: ubuntu-latest
+    env:
+      # Dummy values — CLAUDE.md §6/§8: current unit tests (colocated *_test.py) never
+      # touch a real DB or call a real external service, they use Protocol-based fakes
+      # (see orchestrator_test.py). Settings only needs these to be present strings for
+      # imports to succeed; nothing here needs to resolve to a live service.
+      NODE_ENV: development
+      DATABASE_URL: "postgresql+asyncpg://user:pass@localhost/ci"
+      DATABASE_URL_SYNC: "postgresql://user:pass@localhost/ci"
+      QDRANT_URL: "https://ci.invalid"
+      QDRANT_API_KEY: "ci-dummy"
+      GROQ_API_KEY: "ci-dummy"
+      COHERE_API_KEY: "ci-dummy"
+      BETTER_AUTH_SECRET: "ci-dummy-secret-not-used-for-real-auth-in-ci"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend (with dev extras)
+        working-directory: apps/backend
+        run: pip install -e ".[dev]"
+
+      - name: mypy --strict
+        working-directory: apps/backend
+        run: mypy src
+
+      - name: ruff
+        working-directory: apps/backend
+        run: ruff check src
+
+      - name: black --check
+        working-directory: apps/backend
+        run: black --check src
+
+      - name: pytest
+        working-directory: apps/backend
+        run: pytest -q
+
+  frontend-checks:
+    name: Frontend — typecheck, lint, format, unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: apps/web/package-lock.json
+
+      - name: Install
+        working-directory: apps/web
+        run: npm ci
+
+      - name: tsc --noEmit
+        working-directory: apps/web
+        run: npx tsc --noEmit
+
+      - name: eslint
+        working-directory: apps/web
+        run: npx eslint .
+
+      - name: prettier --check
+        working-directory: apps/web
+        run: npx prettier --check .
+
+      - name: vitest
+        working-directory: apps/web
+        run: npx vitest run
+
+      - name: Hardcoded Roman Urdu string check (CLAUDE.md §7.6)
+        working-directory: apps/web
+        run: |
+          if grep -rEn "[a-zA-Z]+ (karein|karo|milega|hai)[a-zA-Z]?" app components --include="*.tsx" | grep -v "lib/strings.ts"; then
+            echo "Found possible hardcoded Roman Urdu strings outside lib/strings.ts — see grep output above."
+            exit 1
+          fi
+          echo "clean"
+
+  eval:
+    name: Roman Urdu eval corpus (blocking, per CLAUDE.md §8)
+    runs-on: ubuntu-latest
+    needs: backend-checks
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: sindh_agents
+          POSTGRES_PASSWORD: sindh_agents
+          POSTGRES_DB: sindh_agents_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U sindh_agents"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      NODE_ENV: development
+      DATABASE_URL: "postgresql+asyncpg://sindh_agents:sindh_agents@localhost:5432/sindh_agents_ci"
+      DATABASE_URL_SYNC: "postgresql://sindh_agents:sindh_agents@localhost:5432/sindh_agents_ci"
+      QDRANT_URL: ${{ secrets.QDRANT_URL }}
+      QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+      GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+      BETTER_AUTH_SECRET: "ci-eval-secret-not-used-for-real-auth"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend
+        working-directory: apps/backend
+        run: pip install -e ".[dev]"
+
+      - name: Migrate + seed
+        working-directory: apps/backend
+        run: |
+          alembic upgrade head
+          python -m seeds.pilot_sme
+
+      - name: Run eval — see docs/eval_spec.md for gate math
+        working-directory: apps/backend
+        run: python -m evals.roman_urdu

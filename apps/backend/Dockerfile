@@ -6,6 +6,7 @@ COPY pyproject.toml alembic.ini ./
 COPY src ./src
 COPY migrations ./migrations
 COPY seeds ./seeds
+COPY evals ./evals
 
 RUN pip install --no-cache-dir .
 

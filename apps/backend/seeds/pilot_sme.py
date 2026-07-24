@@ -1,3 +1,4 @@
+import asyncio
 import json
 from datetime import UTC, date, datetime, timedelta
 
@@ -223,3 +224,10 @@ async def _seed_buyers_and_history(session: AsyncSession, sme_id: str, agent_id:
                     "created_at": now - timedelta(days=30 * (i + 1)),
                 },
             )
+
+
+if __name__ == "__main__":
+    # per MVP_v1.md's documented `python -m seeds.pilot_sme` — normally auto-run via
+    # DEV_AUTO_SEED on backend startup, but CI and one-off local seeding need a direct
+    # entry point too.
+    asyncio.run(run())
