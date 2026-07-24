@@ -1,0 +1,312 @@
+<h2 class="sr-only">Sindh Agents MVP dashboard mockup showing agents overview, conversation detail with WhatsApp-style chat, and audit ledger drawer</h2>
+
+<div style="padding: 1rem 0; display: grid; grid-template-columns: 1fr; gap: 1.25rem;">
+
+  <!-- Legend / caption -->
+  <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary);">
+    <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #1D9E75;"></span>
+    <span>Emerald accent · WhatsApp-adjacent · Roman Urdu first</span>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- SCREEN 1 — HOME / AGENTS OVERVIEW (desktop) -->
+  <!-- ============================================ -->
+  <div style="background: var(--surface-1); border-radius: 12px; padding: 1rem;">
+    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.02em;">SCREEN 1 · route: /</div>
+
+    <div style="background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden;">
+
+      <!-- header bar -->
+      <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-bottom: 0.5px solid var(--border); background: var(--surface-2);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 28px; height: 28px; border-radius: 6px; background: #1D9E75; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 13px;">SA</div>
+          <span style="font-weight: 500; font-size: 14px;">Sindh Agents</span>
+          <span style="color: var(--text-muted); font-size: 13px;">·</span>
+          <span style="font-size: 13px; color: var(--text-secondary);">Aslam Textiles</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="width: 30px; height: 30px; border-radius: 50%; background: #E1F5EE; color: #04342C; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500;">A</div>
+          <i class="ti ti-chevron-down" style="font-size: 16px; color: var(--text-secondary);" aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <!-- greeting -->
+      <div style="padding: 20px 16px 12px;">
+        <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 2px;">Assalam-o-alaikum,</div>
+        <div style="font-size: 18px; font-weight: 500;">Aslam bhai</div>
+      </div>
+
+      <!-- agents grid -->
+      <div style="padding: 4px 16px 16px;">
+        <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;">Aap ke agents</div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <!-- agent card 1 -->
+          <div style="background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 12px; padding: 14px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #1D9E75;"></span>
+                <span style="font-weight: 500; font-size: 14px;">Stock Agent</span>
+              </div>
+              <i class="ti ti-database" style="font-size: 18px; color: var(--text-secondary);" aria-hidden="true"></i>
+            </div>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Kaam kar raha hai</div>
+            <div style="display: flex; align-items: baseline; justify-content: space-between;">
+              <div>
+                <div style="font-size: 20px; font-weight: 500;">47</div>
+                <div style="font-size: 11px; color: var(--text-muted);">messages aaj</div>
+              </div>
+              <span style="font-size: 12px; color: var(--text-accent);">Sab dekhein →</span>
+            </div>
+          </div>
+
+          <!-- agent card 2 -->
+          <div style="background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 12px; padding: 14px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #1D9E75;"></span>
+                <span style="font-weight: 500; font-size: 14px;">Tax Reminder</span>
+              </div>
+              <i class="ti ti-calendar" style="font-size: 18px; color: var(--text-secondary);" aria-hidden="true"></i>
+            </div>
+            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px;">Kaam kar raha hai</div>
+            <div style="display: flex; align-items: baseline; justify-content: space-between;">
+              <div>
+                <div style="font-size: 20px; font-weight: 500;">3</div>
+                <div style="font-size: 11px; color: var(--text-muted);">deadlines is week</div>
+              </div>
+              <span style="font-size: 12px; color: var(--text-accent);">Dekhein →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- recent conversations -->
+        <div style="margin-top: 20px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+            <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em;">Haal hi ki baat cheet</div>
+            <span style="font-size: 12px; color: var(--text-accent);">Sab dekhein →</span>
+          </div>
+
+          <div style="border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden;">
+            <div style="padding: 12px 14px; display: flex; align-items: center; gap: 12px; border-bottom: 0.5px solid var(--border);">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: #E1F5EE; color: #04342C; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500;">AT</div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 13px; font-weight: 500; display: flex; justify-content: space-between; align-items: center;">
+                  <span>Ali Traders</span>
+                  <span style="font-size: 11px; color: var(--text-muted); font-weight: 400;">2 min pehle</span>
+                </div>
+                <div style="font-size: 12px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">bhai denim kitni hai — 200 chahiye</div>
+              </div>
+              <span style="width: 8px; height: 8px; border-radius: 50%; background: #1D9E75;"></span>
+            </div>
+            <div style="padding: 12px 14px; display: flex; align-items: center; gap: 12px; border-bottom: 0.5px solid var(--border);">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: #E6F1FB; color: #042C53; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500;">SF</div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 13px; font-weight: 500; display: flex; justify-content: space-between; align-items: center;">
+                  <span>Saleem Fabrics</span>
+                  <span style="font-size: 11px; color: var(--text-muted); font-weight: 400;">18 min pehle</span>
+                </div>
+                <div style="font-size: 12px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">rate final kar dein 1150 per piece</div>
+              </div>
+            </div>
+            <div style="padding: 12px 14px; display: flex; align-items: center; gap: 12px;">
+              <div style="width: 32px; height: 32px; border-radius: 50%; background: #FAEEDA; color: #412402; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500;">KG</div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 13px; font-weight: 500; display: flex; justify-content: space-between; align-items: center;">
+                  <span>Khan Garments</span>
+                  <span style="font-size: 11px; color: var(--text-muted); font-weight: 400;">1 ghanta pehle</span>
+                </div>
+                <div style="font-size: 12px; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">chalan kab tayar hoga bhai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- SCREEN 2 — CONVERSATION DETAIL (mobile-ish) -->
+  <!-- ============================================ -->
+  <div style="background: var(--surface-1); border-radius: 12px; padding: 1rem;">
+    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.02em;">SCREEN 2 · route: /conversations/[id] · shows audit magnifier + verbatim numbers</div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+
+      <!-- chat pane -->
+      <div style="background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden;">
+
+        <!-- convo header -->
+        <div style="padding: 12px 14px; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; gap: 10px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: #E1F5EE; color: #04342C; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500;">AT</div>
+          <div style="flex: 1; min-width: 0;">
+            <div style="font-size: 13px; font-weight: 500;">Ali Traders</div>
+            <div style="font-size: 11px; color: var(--text-muted);">+92 3XX ****172</div>
+          </div>
+          <span style="font-size: 11px; padding: 3px 8px; background: #E1F5EE; color: #04342C; border-radius: 999px; font-weight: 500;">Stock Agent</span>
+        </div>
+
+        <!-- messages -->
+        <div style="padding: 14px 12px; display: flex; flex-direction: column; gap: 10px; background: var(--surface-1);">
+
+          <!-- buyer bubble -->
+          <div style="max-width: 82%; align-self: flex-start;">
+            <div style="background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 12px 12px 12px 4px; padding: 8px 10px; font-size: 13px; line-height: 1.5;">bhai denim kitni hai — 200 chahiye kal tak</div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 3px; padding-left: 4px;">10:12 AM</div>
+          </div>
+
+          <!-- agent bubble with audit magnifier -->
+          <div style="max-width: 82%; align-self: flex-end;">
+            <div style="background: #E1F5EE; border: 0.5px solid #9FE1CB; border-radius: 12px 12px 4px 12px; padding: 8px 10px; font-size: 13px; line-height: 1.5; color: #04342C; position: relative;">
+              <div>Bhai, denim <span style="font-weight: 500;">450 pieces</span> hain stock mein. Rate: <span style="font-weight: 500;">Rs. 1,200/piece</span>. 200 pieces confirm kar dein, kal delivery ho jaayegi.</div>
+              <div style="margin-top: 6px; display: flex; justify-content: flex-end;">
+                <button style="background: transparent; border: 0.5px solid #085041; color: #085041; padding: 3px 8px; border-radius: 6px; font-size: 11px; display: inline-flex; align-items: center; gap: 4px; cursor: pointer;" aria-label="Yeh jawaab kaise bana?">
+                  <i class="ti ti-search" style="font-size: 12px;" aria-hidden="true"></i>
+                  Yeh kaise bana?
+                </button>
+              </div>
+            </div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 3px; padding-right: 4px; text-align: right;">10:12 AM</div>
+          </div>
+
+          <!-- buyer bubble -->
+          <div style="max-width: 82%; align-self: flex-start;">
+            <div style="background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 12px 12px 12px 4px; padding: 8px 10px; font-size: 13px; line-height: 1.5;">discount milega kuch? purana customer hoon</div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 3px; padding-left: 4px;">10:14 AM</div>
+          </div>
+
+        </div>
+
+        <!-- read-only footer -->
+        <div style="padding: 8px 12px; border-top: 0.5px solid var(--border); background: var(--surface-2); font-size: 11px; color: var(--text-muted); text-align: center;">
+          <i class="ti ti-lock" style="font-size: 12px; vertical-align: -1px;" aria-hidden="true"></i>
+          Aap yahan se reply nahi kar sakte — Agent kar raha hai
+        </div>
+      </div>
+
+      <!-- audit drawer (open state) -->
+      <div style="background: var(--surface-2); border: 0.5px solid var(--border-strong); border-radius: 12px; overflow: hidden;">
+
+        <div style="padding: 12px 14px; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div style="font-size: 13px; font-weight: 500;">Yeh jawaab kaise bana?</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Audit · message #f2a1c</div>
+          </div>
+          <i class="ti ti-x" style="font-size: 18px; color: var(--text-secondary); cursor: pointer;" aria-label="Close"></i>
+        </div>
+
+        <div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 12px; font-size: 12px;">
+
+          <div>
+            <div style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.06em; margin-bottom: 4px;">Buyer message</div>
+            <div style="font-family: var(--font-mono); font-size: 12px; background: var(--surface-1); border: 0.5px solid var(--border); padding: 6px 8px; border-radius: 6px;">bhai denim kitni hai — 200 chahiye kal tak</div>
+          </div>
+
+          <div>
+            <div style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.06em; margin-bottom: 4px;">Agent ne samjha</div>
+            <div style="line-height: 1.5;">"Denim ka stock puch rahe hain, 200 pieces chahiye kal ke liye."</div>
+          </div>
+
+          <div>
+            <div style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.06em; margin-bottom: 6px;">Tools chalaye</div>
+
+            <div style="border: 0.5px solid var(--border); border-radius: 8px; overflow: hidden;">
+              <div style="padding: 8px 10px; background: var(--surface-1); border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <i class="ti ti-file-spreadsheet" style="font-size: 14px; color: var(--text-secondary);" aria-hidden="true"></i>
+                  <code style="font-size: 11px; font-family: var(--font-mono);">read_excel_stock</code>
+                </div>
+                <span style="font-size: 10px; color: var(--text-muted);">142ms</span>
+              </div>
+              <div style="padding: 8px 10px; font-family: var(--font-mono); font-size: 11px; background: var(--surface-2); color: var(--text-secondary); line-height: 1.6;">
+                sku: "denim-classic"<br>
+                → stock: 450<br>
+                → price_per_piece: 1200
+              </div>
+            </div>
+
+            <div style="margin-top: 6px; border: 0.5px solid var(--border); border-radius: 8px; overflow: hidden;">
+              <div style="padding: 8px 10px; background: var(--surface-1); display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <i class="ti ti-truck-delivery" style="font-size: 14px; color: var(--text-secondary);" aria-hidden="true"></i>
+                  <code style="font-size: 11px; font-family: var(--font-mono);">check_delivery_slot</code>
+                </div>
+                <span style="font-size: 10px; color: var(--text-muted);">88ms</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size: 10px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.06em; margin-bottom: 4px;">Model</div>
+            <span style="font-size: 11px; padding: 3px 8px; background: #EEEDFE; color: #26215C; border-radius: 999px; font-weight: 500;">llama-3.3-70b · Groq</span>
+            <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">Total: 380ms</span>
+          </div>
+
+          <div style="border-top: 0.5px solid var(--border); padding-top: 10px;">
+            <button style="background: transparent; border: 0.5px solid var(--border-strong); padding: 6px 10px; border-radius: 6px; font-size: 12px; color: var(--text-primary); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+              <i class="ti ti-flag" style="font-size: 12px;" aria-hidden="true"></i>
+              Yeh galat hai — nishaan lagayein
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- SCREEN 3 — WIDGET (buyer-facing) -->
+  <!-- ============================================ -->
+  <div style="background: var(--surface-1); border-radius: 12px; padding: 1rem;">
+    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.02em;">SCREEN 3 · buyer-facing widget · payload shape = Meta WA webhook</div>
+
+    <div style="display: flex; justify-content: center;">
+      <div style="width: 320px; background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 12px; overflow: hidden;">
+
+        <div style="padding: 12px 14px; background: #085041; color: #FFFFFF; display: flex; align-items: center; gap: 10px;">
+          <div style="width: 32px; height: 32px; border-radius: 50%; background: #FFFFFF; color: #085041; display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 12px;">SA</div>
+          <div style="flex: 1;">
+            <div style="font-size: 13px; font-weight: 500;">Aslam Textiles</div>
+            <div style="font-size: 11px; opacity: 0.85; display: flex; align-items: center; gap: 4px;">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background: #C0DD97; display: inline-block;"></span>
+              Online
+            </div>
+          </div>
+          <i class="ti ti-x" style="font-size: 18px; opacity: 0.9;" aria-label="Close"></i>
+        </div>
+
+        <div style="padding: 14px 12px; display: flex; flex-direction: column; gap: 10px; background: #F1EFE8; min-height: 180px;">
+
+          <div style="max-width: 82%; align-self: flex-start;">
+            <div style="background: #FFFFFF; border-radius: 8px 8px 8px 2px; padding: 8px 10px; font-size: 13px; line-height: 1.5; color: #2C2C2A;">Assalam-o-alaikum! Kya poochna chahte hain?</div>
+            <div style="font-size: 10px; color: #5F5E5A; margin-top: 3px; padding-left: 4px;">10:11 AM</div>
+          </div>
+
+          <div style="max-width: 82%; align-self: flex-end;">
+            <div style="background: #DCF8C6; border-radius: 8px 8px 2px 8px; padding: 8px 10px; font-size: 13px; line-height: 1.5; color: #2C2C2A;">bhai denim kitni hai — 200 chahiye kal tak</div>
+            <div style="font-size: 10px; color: #5F5E5A; margin-top: 3px; padding-right: 4px; text-align: right;">10:12 AM ✓</div>
+          </div>
+
+          <div style="max-width: 82%; align-self: flex-start;">
+            <div style="background: #FFFFFF; border-radius: 8px 8px 8px 2px; padding: 8px 10px; font-size: 13px; line-height: 1.5; color: #2C2C2A;">Bhai, denim <b style="font-weight: 500;">450 pieces</b> hain stock mein. Rate: <b style="font-weight: 500;">Rs. 1,200/piece</b>. Kal delivery ho jaayegi.</div>
+            <div style="font-size: 10px; color: #5F5E5A; margin-top: 3px; padding-left: 4px;">10:12 AM</div>
+          </div>
+        </div>
+
+        <div style="padding: 8px 10px; background: var(--surface-2); border-top: 0.5px solid var(--border); display: flex; align-items: center; gap: 8px;">
+          <input type="text" placeholder="Message likhein…" style="flex: 1; height: 34px; font-size: 13px; border: 0.5px solid var(--border); border-radius: 999px; padding: 0 12px;" />
+          <button style="background: #085041; color: #FFFFFF; width: 34px; height: 34px; border-radius: 50%; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;" aria-label="Send">
+            <i class="ti ti-send" style="font-size: 16px;" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 12px; padding: 10px 12px; background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 8px; font-size: 11px; color: var(--text-secondary); line-height: 1.6; font-family: var(--font-mono);">
+      POST /api/widget/inbound<br>
+      { messaging_product: <span style="color: #A32D2D;">"widget"</span>, contacts: [{ wa_id, profile }], messages: [{ text, type: <span style="color: #A32D2D;">"text"</span> }] }<br>
+      <span style="color: var(--text-muted);">// Phase 2: same payload, `messaging_product: "whatsapp"`, endpoint = Meta webhook</span>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Dashboard screen 2 — conversation with audit drawer explaining how the reply was generated">
+  <defs>
+    <linearGradient id="mbg2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5F1E8"/>
+      <stop offset="1" stop-color="#EDE7D8"/>
+    </linearGradient>
+    <filter id="ms2" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#04342C" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="720" fill="url(#mbg2)"/>
+
+  <text x="48" y="36" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#8A8880" letter-spacing="0.08em">SCREEN 2  ·  ROUTE /CONVERSATIONS/[ID]</text>
+  <text x="48" y="60" font-family="ui-sans-serif, system-ui" font-size="18" font-weight="600" fill="#04342C">Conversation + audit drawer · "yeh jawaab kaise bana?"</text>
+
+  <!-- Left: chat pane -->
+  <g transform="translate(48, 96)" filter="url(#ms2)">
+    <rect width="528" height="584" rx="14" fill="#FFFFFF" stroke="#E7E4DA"/>
+
+    <!-- convo header -->
+    <g>
+      <circle cx="32" cy="32" r="18" fill="#E1F5EE"/>
+      <text x="32" y="36" font-family="ui-sans-serif, system-ui" font-size="12" font-weight="600" fill="#04342C" text-anchor="middle">AT</text>
+      <text x="60" y="26" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500" fill="#2C2C2A">Ali Traders</text>
+      <text x="60" y="44" font-family="ui-sans-serif, system-ui" font-size="11" fill="#8A8880">+92 3XX ****172</text>
+      <rect x="410" y="20" width="98" height="24" rx="12" fill="#E1F5EE"/>
+      <text x="459" y="36" font-family="ui-sans-serif, system-ui" font-size="11" font-weight="500" fill="#04342C" text-anchor="middle">Stock Agent</text>
+      <line x1="0" y1="64" x2="528" y2="64" stroke="#E7E4DA"/>
+    </g>
+
+    <!-- chat body -->
+    <rect y="64" width="528" height="480" fill="#F5F1E8"/>
+
+    <!-- buyer 1 -->
+    <g transform="translate(16, 80)">
+      <rect width="330" height="42" rx="12" fill="#FFFFFF" stroke="#E7E4DA"/>
+      <text x="14" y="26" font-family="ui-sans-serif, system-ui" font-size="13" fill="#2C2C2A">bhai denim kitni hai — 200 chahiye kal tak</text>
+      <text x="14" y="60" font-family="ui-sans-serif, system-ui" font-size="10" fill="#8A8880">10:12 AM</text>
+    </g>
+
+    <!-- agent bubble with audit link -->
+    <g transform="translate(84, 158)">
+      <rect width="428" height="90" rx="12" fill="#E1F5EE" stroke="#9FE1CB"/>
+      <text x="14" y="26" font-family="ui-sans-serif, system-ui" font-size="13" fill="#04342C">Bhai, denim <tspan font-weight="600">450 pieces</tspan> hain stock mein.</text>
+      <text x="14" y="46" font-family="ui-sans-serif, system-ui" font-size="13" fill="#04342C">Rate: <tspan font-weight="600">Rs. 1,200/piece</tspan>. 200 pieces confirm</text>
+      <text x="14" y="64" font-family="ui-sans-serif, system-ui" font-size="13" fill="#04342C">kar dein, kal delivery ho jaayegi.</text>
+
+      <!-- audit button -->
+      <rect x="292" y="74" width="128" height="24" rx="6" fill="transparent" stroke="#085041"/>
+      <text x="308" y="90" font-family="ui-sans-serif, system-ui" font-size="11" fill="#085041">Yeh kaise bana?</text>
+      <circle cx="302" cy="86" r="3" fill="none" stroke="#085041" stroke-width="1.2"/>
+      <line x1="304" y1="88" x2="306" y2="90" stroke="#085041" stroke-width="1.2"/>
+
+      <text x="420" y="118" font-family="ui-sans-serif, system-ui" font-size="10" fill="#8A8880" text-anchor="end">10:12 AM</text>
+    </g>
+
+    <!-- buyer 2 -->
+    <g transform="translate(16, 306)">
+      <rect width="290" height="42" rx="12" fill="#FFFFFF" stroke="#E7E4DA"/>
+      <text x="14" y="26" font-family="ui-sans-serif, system-ui" font-size="13" fill="#2C2C2A">discount milega kuch? purana customer hoon</text>
+      <text x="14" y="60" font-family="ui-sans-serif, system-ui" font-size="10" fill="#8A8880">10:14 AM</text>
+    </g>
+
+    <!-- read-only footer -->
+    <g transform="translate(0, 544)">
+      <line x1="0" y1="0" x2="528" y2="0" stroke="#E7E4DA"/>
+      <rect y="0" width="528" height="40" fill="#FFFFFF"/>
+      <text x="264" y="24" font-family="ui-sans-serif, system-ui" font-size="11" fill="#8A8880" text-anchor="middle">Aap yahan se reply nahi kar sakte — Agent kar raha hai</text>
+    </g>
+  </g>
+
+  <!-- Right: audit drawer -->
+  <g transform="translate(600, 96)" filter="url(#ms2)">
+    <rect width="552" height="584" rx="14" fill="#FFFFFF" stroke="#04342C"/>
+
+    <g>
+      <text x="20" y="30" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="600" fill="#2C2C2A">Yeh jawaab kaise bana?</text>
+      <text x="20" y="48" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#8A8880">Audit · message #f2a1c</text>
+      <text x="532" y="34" font-family="ui-sans-serif, system-ui" font-size="18" fill="#8A8880" text-anchor="end">×</text>
+      <line x1="0" y1="64" x2="552" y2="64" stroke="#E7E4DA"/>
+    </g>
+
+    <!-- Section: buyer message -->
+    <g transform="translate(20, 84)">
+      <text font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#8A8880" letter-spacing="0.08em">BUYER MESSAGE</text>
+      <rect y="10" width="512" height="28" rx="6" fill="#F5F1E8" stroke="#E7E4DA"/>
+      <text x="10" y="28" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#2C2C2A">bhai denim kitni hai — 200 chahiye kal tak</text>
+    </g>
+
+    <!-- Section: agent understood -->
+    <g transform="translate(20, 148)">
+      <text font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#8A8880" letter-spacing="0.08em">AGENT NE SAMJHA</text>
+      <text y="26" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A" font-style="italic">"Denim ka stock puch rahe hain, 200 pieces</text>
+      <text y="42" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A" font-style="italic">chahiye kal ke liye."</text>
+    </g>
+
+    <!-- Section: tools -->
+    <g transform="translate(20, 212)">
+      <text font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#8A8880" letter-spacing="0.08em">TOOLS CHALAYE</text>
+
+      <!-- tool 1 (with output) -->
+      <g transform="translate(0, 12)">
+        <rect width="512" height="88" rx="8" fill="#FFFFFF" stroke="#E7E4DA"/>
+        <rect width="512" height="30" rx="8" fill="#F5F1E8"/>
+        <rect y="22" width="512" height="8" fill="#F5F1E8"/>
+        <line x1="0" y1="30" x2="512" y2="30" stroke="#E7E4DA"/>
+        <text x="12" y="20" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#04342C">read_excel_stock</text>
+        <text x="500" y="20" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#8A8880" text-anchor="end">142ms</text>
+        <text x="12" y="50" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#5F5E5A">sku: "denim-classic"</text>
+        <text x="12" y="66" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#04342C">→ stock: 450</text>
+        <text x="12" y="82" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#04342C">→ price_per_piece: 1200</text>
+      </g>
+
+      <!-- tool 2 -->
+      <g transform="translate(0, 108)">
+        <rect width="512" height="30" rx="8" fill="#F5F1E8" stroke="#E7E4DA"/>
+        <text x="12" y="20" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#04342C">check_delivery_slot</text>
+        <text x="500" y="20" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#8A8880" text-anchor="end">88ms</text>
+      </g>
+    </g>
+
+    <!-- Section: model -->
+    <g transform="translate(20, 400)">
+      <text font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#8A8880" letter-spacing="0.08em">MODEL</text>
+      <rect y="10" width="150" height="24" rx="12" fill="#EEEDFE"/>
+      <text x="12" y="26" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#26215C" font-weight="500">llama-3.3-70b · Groq</text>
+      <text x="164" y="26" font-family="ui-sans-serif, system-ui" font-size="11" fill="#8A8880">Total: 380ms</text>
+    </g>
+
+    <!-- Section: flag button -->
+    <g transform="translate(20, 460)">
+      <line x1="0" y1="-8" x2="512" y2="-8" stroke="#E7E4DA"/>
+      <rect y="0" width="220" height="30" rx="6" fill="transparent" stroke="#8A8880"/>
+      <text x="14" y="20" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A">Yeh galat hai — nishaan lagayein</text>
+    </g>
+  </g>
+</svg>

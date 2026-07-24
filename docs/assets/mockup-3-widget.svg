@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Dashboard screen 3 — buyer-facing WhatsApp-style widget with sample conversation and webhook payload">
+  <defs>
+    <linearGradient id="mbg3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5F1E8"/>
+      <stop offset="1" stop-color="#EDE7D8"/>
+    </linearGradient>
+    <filter id="ms3" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#04342C" flood-opacity="0.12"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="720" fill="url(#mbg3)"/>
+
+  <text x="48" y="36" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#8A8880" letter-spacing="0.08em">SCREEN 3  ·  BUYER-FACING WIDGET</text>
+  <text x="48" y="60" font-family="ui-sans-serif, system-ui" font-size="18" font-weight="600" fill="#04342C">Web widget · payload shape = Meta WhatsApp webhook</text>
+
+  <!-- widget -->
+  <g transform="translate(400, 100)" filter="url(#ms3)">
+    <rect width="400" height="500" rx="18" fill="#FFFFFF" stroke="#E7E4DA"/>
+
+    <!-- header (dark emerald) -->
+    <rect width="400" height="60" rx="18" fill="#085041"/>
+    <rect y="30" width="400" height="30" fill="#085041"/>
+
+    <circle cx="34" cy="30" r="18" fill="#FFFFFF"/>
+    <text x="34" y="34" font-family="ui-sans-serif, system-ui" font-size="12" font-weight="700" fill="#085041" text-anchor="middle">SA</text>
+
+    <text x="62" y="26" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500" fill="#FFFFFF">Aslam Textiles</text>
+    <circle cx="66" cy="42" r="3" fill="#C0DD97"/>
+    <text x="74" y="46" font-family="ui-sans-serif, system-ui" font-size="11" fill="#C0DD97">Online</text>
+
+    <text x="376" y="36" font-family="ui-sans-serif, system-ui" font-size="18" fill="#FFFFFF" opacity="0.9" text-anchor="end">×</text>
+
+    <!-- chat body (WhatsApp cream) -->
+    <rect y="60" width="400" height="380" fill="#F1EFE8"/>
+
+    <!-- welcome from agent -->
+    <g transform="translate(14, 76)">
+      <rect width="270" height="34" rx="8" fill="#FFFFFF"/>
+      <path d="M0 34 L0 30 L4 30 Z" fill="#FFFFFF"/>
+      <text x="12" y="22" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A">Assalam-o-alaikum! Kya poochna chahte hain?</text>
+      <text x="12" y="50" font-family="ui-sans-serif, system-ui" font-size="10" fill="#5F5E5A">10:11 AM</text>
+    </g>
+
+    <!-- buyer msg -->
+    <g transform="translate(114, 144)">
+      <rect width="272" height="34" rx="8" fill="#DCF8C6"/>
+      <path d="M272 34 L272 30 L268 30 Z" fill="#DCF8C6"/>
+      <text x="12" y="22" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A">bhai denim kitni hai — 200 chahiye kal tak</text>
+      <text x="260" y="50" font-family="ui-sans-serif, system-ui" font-size="10" fill="#5F5E5A" text-anchor="end">10:12 AM ✓✓</text>
+    </g>
+
+    <!-- agent reply -->
+    <g transform="translate(14, 210)">
+      <rect width="330" height="82" rx="8" fill="#FFFFFF"/>
+      <path d="M0 82 L0 78 L4 78 Z" fill="#FFFFFF"/>
+      <text x="12" y="24" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A">Bhai, denim <tspan font-weight="600">450 pieces</tspan> hain stock</text>
+      <text x="12" y="42" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A">mein. Rate: <tspan font-weight="600">Rs. 1,200/piece</tspan>.</text>
+      <text x="12" y="60" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A">Kal delivery ho jaayegi.</text>
+      <text x="12" y="98" font-family="ui-sans-serif, system-ui" font-size="10" fill="#5F5E5A">10:12 AM</text>
+    </g>
+
+    <!-- buyer msg 2 -->
+    <g transform="translate(114, 324)">
+      <rect width="272" height="34" rx="8" fill="#DCF8C6"/>
+      <text x="12" y="22" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A">discount milega? purana customer hoon</text>
+      <text x="260" y="50" font-family="ui-sans-serif, system-ui" font-size="10" fill="#5F5E5A" text-anchor="end">10:14 AM ✓</text>
+    </g>
+
+    <!-- typing -->
+    <g transform="translate(14, 388)">
+      <rect width="90" height="30" rx="8" fill="#FFFFFF"/>
+      <circle cx="24" cy="15" r="3" fill="#8A8880"/>
+      <circle cx="36" cy="15" r="3" fill="#8A8880" opacity="0.6"/>
+      <circle cx="48" cy="15" r="3" fill="#8A8880" opacity="0.3"/>
+    </g>
+
+    <!-- input -->
+    <rect y="440" width="400" height="60" fill="#FFFFFF"/>
+    <line x1="0" y1="440" x2="400" y2="440" stroke="#E7E4DA"/>
+    <rect x="14" y="454" width="332" height="32" rx="16" fill="#F1EFE8"/>
+    <text x="30" y="475" font-family="ui-sans-serif, system-ui" font-size="12" fill="#8A8880">Message likhein…</text>
+    <circle cx="370" cy="470" r="18" fill="#085041"/>
+    <path d="M362 470 L378 470 M373 464 L378 470 L373 476" stroke="#FFFFFF" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- webhook payload -->
+  <g transform="translate(48, 620)">
+    <rect width="1104" height="76" rx="10" fill="#FFFFFF" stroke="#E7E4DA"/>
+    <rect width="4" height="76" rx="2" fill="#1D9E75"/>
+    <text x="20" y="24" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#8A8880" letter-spacing="0.08em">POST /API/WIDGET/INBOUND</text>
+    <text x="20" y="46" font-family="ui-monospace, Menlo, monospace" font-size="12" fill="#2C2C2A">{ messaging_product: <tspan fill="#A32D2D">"widget"</tspan>, contacts: [{ wa_id, profile }], messages: [{ text, type: <tspan fill="#A32D2D">"text"</tspan> }] }</text>
+    <text x="20" y="64" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#8A8880">// Phase 2: same payload, messaging_product: "whatsapp", endpoint = Meta webhook</text>
+  </g>
+</svg>

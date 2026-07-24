@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-label="End-to-end flow: buyer message through orchestrator, tools, narrator, audit, and reply">
+  <defs>
+    <linearGradient id="fbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5F1E8"/>
+      <stop offset="1" stop-color="#EDE7D8"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#085041"/>
+    </marker>
+    <marker id="arrowGray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8A8880"/>
+    </marker>
+    <filter id="cardshadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#04342C" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="620" fill="url(#fbg)"/>
+
+  <!-- title -->
+  <g transform="translate(48, 44)">
+    <rect x="0" y="0" width="4" height="26" rx="2" fill="#1D9E75"/>
+    <text x="14" y="19" font-family="ui-sans-serif, system-ui, -apple-system" font-size="20" font-weight="600" fill="#04342C">How one message becomes one reply</text>
+    <text x="14" y="42" font-family="ui-sans-serif, system-ui" font-size="13" fill="#5F5E5A">Deterministic engine on the left. LLM narrates on the right. Audit before send.</text>
+  </g>
+
+  <!-- lanes -->
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" fill="#8A8880" letter-spacing="0.06em">
+    <text x="60" y="120">FRONTEND</text>
+    <text x="298" y="120">API</text>
+    <text x="540" y="120">ORCHESTRATOR</text>
+    <text x="820" y="120">DATA + LLM</text>
+    <text x="1078" y="120">AUDIT</text>
+  </g>
+  <g stroke="#E7E4DA" stroke-dasharray="2 4">
+    <line x1="240" y1="130" x2="240" y2="560"/>
+    <line x1="480" y1="130" x2="480" y2="560"/>
+    <line x1="780" y1="130" x2="780" y2="560"/>
+    <line x1="1050" y1="130" x2="1050" y2="560"/>
+  </g>
+
+  <!-- Node 1: Buyer / Widget -->
+  <g transform="translate(50, 160)" filter="url(#cardshadow)">
+    <rect width="180" height="80" rx="12" fill="#FFFFFF" stroke="#E7E4DA"/>
+    <rect width="180" height="24" rx="12" fill="#F1EFE8"/>
+    <rect y="12" width="180" height="12" fill="#F1EFE8"/>
+    <text x="12" y="17" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#5F5E5A">01 · buyer · widget</text>
+    <text x="12" y="46" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A" font-weight="500">"denim kitni hai"</text>
+    <text x="12" y="66" font-family="ui-sans-serif, system-ui" font-size="11" fill="#5F5E5A">Roman Urdu inbound</text>
+  </g>
+
+  <!-- Node 2: Webhook -->
+  <g transform="translate(280, 160)" filter="url(#cardshadow)">
+    <rect width="180" height="80" rx="12" fill="#FFFFFF" stroke="#E7E4DA"/>
+    <rect width="180" height="24" rx="12" fill="#E1F5EE"/>
+    <rect y="12" width="180" height="12" fill="#E1F5EE"/>
+    <text x="12" y="17" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#04342C">02 · POST /webhook/message</text>
+    <text x="12" y="46" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A" font-weight="500">FastAPI receives</text>
+    <text x="12" y="66" font-family="ui-sans-serif, system-ui" font-size="11" fill="#5F5E5A">WA-shaped payload</text>
+  </g>
+
+  <!-- Node 3: Intent Classifier -->
+  <g transform="translate(510, 160)" filter="url(#cardshadow)">
+    <rect width="240" height="80" rx="12" fill="#FFFFFF" stroke="#9FE1CB"/>
+    <rect width="240" height="24" rx="12" fill="#E1F5EE"/>
+    <rect y="12" width="240" height="12" fill="#E1F5EE"/>
+    <text x="12" y="17" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#04342C">03 · intent classifier</text>
+    <text x="12" y="46" font-family="ui-sans-serif, system-ui" font-size="12" fill="#2C2C2A" font-weight="500">stock · price · payment · invoice · order · credit</text>
+    <text x="12" y="66" font-family="ui-sans-serif, system-ui" font-size="11" fill="#5F5E5A">Groq · temperature 0 · single token</text>
+  </g>
+
+  <!-- Node 4: Tools -->
+  <g transform="translate(810, 160)" filter="url(#cardshadow)">
+    <rect width="240" height="140" rx="12" fill="#FFFFFF" stroke="#9FE1CB"/>
+    <rect width="240" height="24" rx="12" fill="#E1F5EE"/>
+    <rect y="12" width="240" height="12" fill="#E1F5EE"/>
+    <text x="12" y="17" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#04342C">04 · tool functions</text>
+
+    <g font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#04342C">
+      <rect x="12" y="34" width="216" height="22" rx="6" fill="#F5F1E8" stroke="#E7E4DA"/>
+      <text x="20" y="49">stock_lookup(sku="denim")</text>
+
+      <rect x="12" y="62" width="216" height="22" rx="6" fill="#F5F1E8" stroke="#E7E4DA"/>
+      <text x="20" y="77">price_lookup(buyer_id)</text>
+
+      <rect x="12" y="90" width="216" height="22" rx="6" fill="#F5F1E8" stroke="#E7E4DA"/>
+      <text x="20" y="105">check_delivery_slot()</text>
+    </g>
+
+    <text x="12" y="128" font-family="ui-sans-serif, system-ui" font-size="10" fill="#5F5E5A">→ Excel · Postgres · Qdrant</text>
+  </g>
+
+  <!-- Node 5: Evidence -->
+  <g transform="translate(810, 320)" filter="url(#cardshadow)">
+    <rect width="240" height="90" rx="12" fill="#FFFFFF" stroke="#E7E4DA"/>
+    <rect width="240" height="24" rx="12" fill="#F5F1E8"/>
+    <rect y="12" width="240" height="12" fill="#F5F1E8"/>
+    <text x="12" y="17" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#5F5E5A">05 · Evidence</text>
+    <text x="12" y="44" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#2C2C2A">stock: 450</text>
+    <text x="12" y="60" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#2C2C2A">price: 1200</text>
+    <text x="12" y="76" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#5F5E5A">source_ref: 0xa1b2…</text>
+  </g>
+
+  <!-- Node 6: Narrator -->
+  <g transform="translate(510, 320)" filter="url(#cardshadow)">
+    <rect width="240" height="90" rx="12" fill="#FFFFFF" stroke="#C7C3F0"/>
+    <rect width="240" height="24" rx="12" fill="#EEEDFE"/>
+    <rect y="12" width="240" height="12" fill="#EEEDFE"/>
+    <text x="12" y="17" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#26215C">06 · narrator · llama-3.3-70b</text>
+    <text x="12" y="44" font-family="ui-sans-serif, system-ui" font-size="11" fill="#2C2C2A" font-style="italic">"Rephrase evidence in polite</text>
+    <text x="12" y="60" font-family="ui-sans-serif, system-ui" font-size="11" fill="#2C2C2A" font-style="italic">Roman Urdu. Do not change</text>
+    <text x="12" y="76" font-family="ui-sans-serif, system-ui" font-size="11" fill="#2C2C2A" font-style="italic">a single number."</text>
+  </g>
+
+  <!-- Node 7: Audit -->
+  <g transform="translate(1060, 320)" filter="url(#cardshadow)">
+    <rect width="90" height="90" rx="12" fill="#04342C"/>
+    <text x="12" y="22" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#9FE1CB">07 · audit</text>
+    <text x="12" y="44" font-family="ui-sans-serif, system-ui" font-size="11" fill="#E1F5EE">hash-chain</text>
+    <text x="12" y="60" font-family="ui-sans-serif, system-ui" font-size="11" fill="#E1F5EE">write</text>
+    <text x="12" y="80" font-family="ui-monospace, Menlo, monospace" font-size="9" fill="#9FE1CB">before reply</text>
+  </g>
+
+  <!-- Node 8: Reply -->
+  <g transform="translate(50, 460)" filter="url(#cardshadow)">
+    <rect width="410" height="80" rx="12" fill="#DCF8C6" stroke="#9FE1CB"/>
+    <text x="12" y="20" font-family="ui-monospace, Menlo, monospace" font-size="10" fill="#04342C">08 · reply to buyer · Roman Urdu narration</text>
+    <text x="12" y="44" font-family="ui-sans-serif, system-ui" font-size="13" fill="#2C2C2A" font-weight="500">"Bhai, denim 450 pieces hain stock mein.</text>
+    <text x="12" y="62" font-family="ui-sans-serif, system-ui" font-size="13" fill="#2C2C2A" font-weight="500">Rate: Rs. 1,200/piece. Kal delivery ho jaayegi."</text>
+  </g>
+
+  <!-- arrows -->
+  <g fill="none" stroke="#085041" stroke-width="1.5">
+    <!-- 1 -> 2 -->
+    <path d="M230 200 L280 200" marker-end="url(#arrow)"/>
+    <!-- 2 -> 3 -->
+    <path d="M460 200 L510 200" marker-end="url(#arrow)"/>
+    <!-- 3 -> 4 -->
+    <path d="M750 200 L810 200" marker-end="url(#arrow)"/>
+    <!-- 4 -> 5 (down) -->
+    <path d="M930 300 L930 320" marker-end="url(#arrow)"/>
+    <!-- 5 -> 6 (left) -->
+    <path d="M810 365 L750 365" marker-end="url(#arrow)"/>
+    <!-- 6 -> 7 (curve out and around) -->
+    <path d="M750 365 C 940 365, 990 365, 1060 365" marker-end="url(#arrow)"/>
+    <!-- 7 -> 8 (audit gate, then reply) -->
+    <path d="M1060 400 C 900 500, 500 500, 460 500" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- side note: the invariant -->
+  <g transform="translate(50, 560)">
+    <rect x="0" y="0" width="1100" height="42" rx="10" fill="#FFFFFF" stroke="#E7E4DA"/>
+    <rect x="0" y="0" width="4" height="42" rx="2" fill="#1D9E75"/>
+    <text x="16" y="18" font-family="ui-sans-serif, system-ui" font-size="12" font-weight="600" fill="#04342C">Invariant</text>
+    <text x="16" y="34" font-family="ui-sans-serif, system-ui" font-size="12" fill="#5F5E5A">The LLM sees a JSON evidence dict, not the Excel. It cannot invent a number. Every reply commits to the audit ledger before it leaves the backend.</text>
+  </g>
+</svg>

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Dashboard screen 1 — agents overview: greeting, agent cards, recent conversations">
+  <defs>
+    <linearGradient id="mbg1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F5F1E8"/>
+      <stop offset="1" stop-color="#EDE7D8"/>
+    </linearGradient>
+    <filter id="ms1" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#04342C" flood-opacity="0.10"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="720" fill="url(#mbg1)"/>
+
+  <!-- label -->
+  <text x="48" y="36" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#8A8880" letter-spacing="0.08em">SCREEN 1  ·  ROUTE /</text>
+  <text x="48" y="60" font-family="ui-sans-serif, system-ui" font-size="18" font-weight="600" fill="#04342C">Agents overview · desktop</text>
+
+  <!-- app frame -->
+  <g transform="translate(48, 96)" filter="url(#ms1)">
+    <rect width="1104" height="584" rx="14" fill="#FFFFFF" stroke="#E7E4DA"/>
+
+    <!-- top bar -->
+    <rect width="1104" height="56" rx="14" fill="#FFFFFF"/>
+    <rect y="42" width="1104" height="14" fill="#FFFFFF"/>
+    <line x1="0" y1="56" x2="1104" y2="56" stroke="#E7E4DA"/>
+    <g transform="translate(20, 14)">
+      <rect width="28" height="28" rx="6" fill="#1D9E75"/>
+      <text x="14" y="19" font-family="ui-sans-serif, system-ui" font-size="12" font-weight="600" fill="#FFFFFF" text-anchor="middle">SA</text>
+      <text x="40" y="19" font-family="ui-sans-serif, system-ui" font-size="14" font-weight="500" fill="#2C2C2A">Sindh Agents</text>
+      <text x="152" y="19" font-family="ui-sans-serif, system-ui" font-size="13" fill="#8A8880">·</text>
+      <text x="164" y="19" font-family="ui-sans-serif, system-ui" font-size="13" fill="#5F5E5A">Aslam Textiles</text>
+    </g>
+    <g transform="translate(1052, 14)">
+      <circle cx="14" cy="14" r="14" fill="#E1F5EE"/>
+      <text x="14" y="18" font-family="ui-sans-serif, system-ui" font-size="12" font-weight="600" fill="#04342C" text-anchor="middle">A</text>
+    </g>
+
+    <!-- greeting -->
+    <g transform="translate(24, 88)">
+      <text font-family="ui-sans-serif, system-ui" font-size="13" fill="#5F5E5A">Assalam-o-alaikum,</text>
+      <text y="26" font-family="ui-sans-serif, system-ui" font-size="24" font-weight="500" fill="#2C2C2A">Aslam bhai</text>
+    </g>
+
+    <!-- section: agents -->
+    <text x="24" y="168" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#8A8880" letter-spacing="0.08em">AAP KE AGENTS</text>
+
+    <!-- Agent card 1: Stock Agent -->
+    <g transform="translate(24, 184)">
+      <rect width="528" height="126" rx="12" fill="#FFFFFF" stroke="#E7E4DA"/>
+      <circle cx="18" cy="22" r="5" fill="#1D9E75"/>
+      <text x="32" y="26" font-family="ui-sans-serif, system-ui" font-size="15" font-weight="500" fill="#2C2C2A">Stock Agent</text>
+      <text x="18" y="50" font-family="ui-sans-serif, system-ui" font-size="12" fill="#5F5E5A">Kaam kar raha hai</text>
+
+      <text x="18" y="94" font-family="ui-sans-serif, system-ui" font-size="30" font-weight="500" fill="#2C2C2A">47</text>
+      <text x="18" y="112" font-family="ui-sans-serif, system-ui" font-size="11" fill="#8A8880">messages aaj</text>
+
+      <text x="510" y="112" font-family="ui-sans-serif, system-ui" font-size="12" fill="#1D9E75" text-anchor="end" font-weight="500">Sab dekhein →</text>
+
+      <!-- icon -->
+      <g transform="translate(494, 14)" stroke="#5F5E5A" stroke-width="1.5" fill="none">
+        <ellipse cx="10" cy="4" rx="10" ry="3"/>
+        <path d="M0 4 v6 c0 1.66 4.48 3 10 3 s10 -1.34 10 -3 v-6"/>
+        <path d="M0 10 v6 c0 1.66 4.48 3 10 3 s10 -1.34 10 -3 v-6"/>
+      </g>
+    </g>
+
+    <!-- Agent card 2: Tax Reminder -->
+    <g transform="translate(568, 184)">
+      <rect width="512" height="126" rx="12" fill="#FFFFFF" stroke="#E7E4DA"/>
+      <circle cx="18" cy="22" r="5" fill="#1D9E75"/>
+      <text x="32" y="26" font-family="ui-sans-serif, system-ui" font-size="15" font-weight="500" fill="#2C2C2A">Tax Reminder</text>
+      <text x="18" y="50" font-family="ui-sans-serif, system-ui" font-size="12" fill="#5F5E5A">Kaam kar raha hai</text>
+
+      <text x="18" y="94" font-family="ui-sans-serif, system-ui" font-size="30" font-weight="500" fill="#2C2C2A">3</text>
+      <text x="18" y="112" font-family="ui-sans-serif, system-ui" font-size="11" fill="#8A8880">deadlines is week</text>
+
+      <text x="494" y="112" font-family="ui-sans-serif, system-ui" font-size="12" fill="#1D9E75" text-anchor="end" font-weight="500">Dekhein →</text>
+
+      <g transform="translate(478, 14)" stroke="#5F5E5A" stroke-width="1.5" fill="none">
+        <rect x="0" y="2" width="20" height="18" rx="2"/>
+        <path d="M0 8 h20 M6 0 v4 M14 0 v4"/>
+      </g>
+    </g>
+
+    <!-- section: recent conversations -->
+    <text x="24" y="348" font-family="ui-monospace, Menlo, monospace" font-size="11" fill="#8A8880" letter-spacing="0.08em">HAAL HI KI BAAT CHEET</text>
+    <text x="1080" y="348" font-family="ui-sans-serif, system-ui" font-size="12" fill="#1D9E75" text-anchor="end" font-weight="500">Sab dekhein →</text>
+
+    <g transform="translate(24, 364)">
+      <rect width="1056" height="192" rx="12" fill="#FFFFFF" stroke="#E7E4DA"/>
+
+      <!-- row 1 -->
+      <g transform="translate(0, 0)">
+        <circle cx="30" cy="30" r="18" fill="#E1F5EE"/>
+        <text x="30" y="34" font-family="ui-sans-serif, system-ui" font-size="12" font-weight="600" fill="#04342C" text-anchor="middle">AT</text>
+        <text x="60" y="24" font-family="ui-sans-serif, system-ui" font-size="13" font-weight="500" fill="#2C2C2A">Ali Traders</text>
+        <text x="60" y="42" font-family="ui-sans-serif, system-ui" font-size="12" fill="#5F5E5A">bhai denim kitni hai — 200 chahiye</text>
+        <text x="1030" y="24" font-family="ui-sans-serif, system-ui" font-size="11" fill="#8A8880" text-anchor="end">2 min pehle</text>
+        <circle cx="1038" cy="38" r="4" fill="#1D9E75"/>
+        <line x1="0" y1="60" x2="1056" y2="60" stroke="#E7E4DA"/>
+      </g>
+
+      <!-- row 2 -->
+      <g transform="translate(0, 64)">
+        <circle cx="30" cy="30" r="18" fill="#E1F5EE"/>
+        <text x="30" y="34" font-family="ui-sans-serif, system-ui" font-size="12" font-weight="600" fill="#04342C" text-anchor="middle">KZ</text>
+        <text x="60" y="24" font-family="ui-sans-serif, system-ui" font-size="13" font-weight="500" fill="#2C2C2A">Karim Zafar</text>
+        <text x="60" y="42" font-family="ui-sans-serif, system-ui" font-size="12" fill="#5F5E5A">payment ka kya scene hai bhai</text>
+        <text x="1030" y="24" font-family="ui-sans-serif, system-ui" font-size="11" fill="#8A8880" text-anchor="end">18 min pehle</text>
+        <line x1="0" y1="60" x2="1056" y2="60" stroke="#E7E4DA"/>
+      </g>
+
+      <!-- row 3 -->
+      <g transform="translate(0, 128)">
+        <circle cx="30" cy="30" r="18" fill="#E1F5EE"/>
+        <text x="30" y="34" font-family="ui-sans-serif, system-ui" font-size="12" font-weight="600" fill="#04342C" text-anchor="middle">MB</text>
+        <text x="60" y="24" font-family="ui-sans-serif, system-ui" font-size="13" font-weight="500" fill="#2C2C2A">Malik Brothers</text>
+        <text x="60" y="42" font-family="ui-sans-serif, system-ui" font-size="12" fill="#5F5E5A">chalan bhejo jaldi</text>
+        <text x="1030" y="24" font-family="ui-sans-serif, system-ui" font-size="11" fill="#8A8880" text-anchor="end">42 min pehle</text>
+      </g>
+    </g>
+  </g>
+</svg>
