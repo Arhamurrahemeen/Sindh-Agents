@@ -28,7 +28,7 @@ pairs_with: CLAUDE.md, dashboard_spec.md, api-contract.md, db_schema.md, tools_s
 | **P3** | Agent loop (deterministic) | Buyer asks "denim kitni hai," agent replies with real number from Excel |
 | **P4** | Dashboard views | SME sees agent list, conversation list, message thread, audit drawer |
 | **P5** | Eval + polish | Baneen's 30-query eval passes ≥80% hard-fail; Lighthouse mobile ≥90; strings reviewed |
-| **P6** | Demo-day WhatsApp flip *(optional)* | Judge messages agent from real WhatsApp; agent replies on WhatsApp |
+| **P6** | Excel inventory upload | SME uploads a `.xlsx` from the dashboard; stock snapshot replaces the old one; widget reply reflects new numbers |
 
 **Not phases:** unit tests (colocated per feature), commit hygiene (per PR), documentation updates (per feature).
 
@@ -343,47 +343,43 @@ grep -rEn '[a-zA-Z]+ (karein|karo|milega|hai)[a-zA-Z]?' apps/web/app apps/web/co
 
 ---
 
-## P6 — Demo-day WhatsApp Flip *(optional but recommended)*
+## P6 — Excel Inventory Upload
 
-**Goal:** judge messages the agent from real WhatsApp on their phone. Agent replies. Pitch multiplier.
+**Goal:** SME uploads a `.xlsx` stock sheet from the dashboard; it replaces the active snapshot; the widget's next reply reflects the new numbers. Full design in `phase/P6.md`.
 
 **Files touched:**
-- `.env` — new values for `FEATURE_WHATSAPP`, `TWILIO_WHATSAPP_*`
-- Nothing else — the three disciplines from CLAUDE.md §7.5 mean the code paths already exist.
+- `apps/backend/src/services/excel_ingestion_service.py` — parse, validate, transactional replace (deactivate old snapshot, insert new, bulk-insert rows)
+- `apps/backend/src/api/excel.py` — `POST /api/excel/reingest`, reuses `require_session`
+- `apps/backend/pyproject.toml` — add `openpyxl`, `python-multipart`
+- `apps/web/app/api/excel/reingest/route.ts` — dedicated raw-passthrough proxy (NOT the shared `proxyToBackend`, which hardcodes JSON content-type and would corrupt a binary upload)
+- `apps/web/app/(dashboard)/inventory/page.tsx` — upload page (empty / uploading / success / validation-error states)
+- `apps/web/lib/strings.ts` — new upload-flow strings
 
-**Prereqs (do these the night before, not on stage):**
-- Twilio account created.
-- WhatsApp Sandbox enabled in Twilio console.
-- Sandbox number + join keyword recorded.
-- `ngrok http 8000` or public backend URL configured; Twilio inbound webhook URL points to `<public>/api/widget/inbound`.
-- Team's phones opted in with `join <keyword>` — verify a message flows end-to-end.
+**What to expect:**
+- SME uploads a `.xlsx` with a changed price for "denim" → success toast shows item count + timestamp.
+- Ask the widget "denim kitni hai" → reply reflects the new price, not the seeded one.
+- Re-upload the same unchanged file → no-op (hash matches current active snapshot).
+- Upload a file missing a required column → rejected whole-file, with row/column-specific errors, nothing written.
 
-**Run (demo day, on stage):**
+**Run:**
 ```bash
-# 1. Restart backend with flag on
-export FEATURE_WHATSAPP=true
-export TWILIO_WHATSAPP_ACCOUNT_SID=ACxxx
-export TWILIO_WHATSAPP_AUTH_TOKEN=xxx
-export TWILIO_WHATSAPP_FROM=whatsapp:+14155238886
-export TWILIO_WHATSAPP_WEBHOOK_SECRET=xxx
-uvicorn src.main:app --port 8000
-
-# 2. Judge sends `join <keyword>` from their WhatsApp to the sandbox number
-# 3. Judge sends "denim kitni hai" via WhatsApp
-# 4. Agent replies via WhatsApp within seconds
-# 5. On the demo laptop, dashboard shows the same conversation with channel='whatsapp'
+# Everything from P0-P5 running.
+# Dashboard → agent card → Inventory → upload a .xlsx
+# Verify DB directly:
+psql $DATABASE_URL_SYNC -c "SELECT sku_canonical, stock, price_per_unit FROM excel_stock_items WHERE sme_id='<pilot>';"
+# Then ask the widget about the changed SKU and confirm the reply matches.
 ```
 
 **Done means:**
-- [ ] Backend starts cleanly with flag+creds.
-- [ ] Twilio webhook proxies inbound to `/api/widget/inbound`; handler dispatches to WhatsApp outbound channel.
-- [ ] Agent reply sent via Twilio's WhatsApp send API; judge sees it in their WhatsApp thread.
-- [ ] Dashboard conversation list shows a WhatsApp icon (not widget icon) on the new row.
-- [ ] Audit drawer shows the same tool_calls shape — no channel-specific fields.
+- [ ] `POST /api/excel/reingest` accepts multipart `.xlsx`, session-authenticated, 401 without a valid session.
+- [ ] SHA-256 of raw bytes checked against current active snapshot's hash; identical re-upload is a no-op.
+- [ ] Deactivate-old + insert-new + bulk-insert rows happen in one transaction.
+- [ ] Bad row (missing column, negative stock/price, bad unit) rejects the whole file — nothing partially written.
+- [ ] File size cap (2MB) and row cap (500) enforced; oversized file returns 413.
+- [ ] Widget reply reflects newly uploaded data with zero changes to `read_excel_stock`/`ExcelStockRepository`.
+- [ ] `docs/tools_spec.md`, `docs/api-contract.md`, `docs/dashboard_spec.md`, `docs/CLAUDE.md` updated per `phase/P6.md` §3.
 
-**If P6 breaks 30 minutes before demo:** flip `FEATURE_WHATSAPP=false`, restart. Widget-only demo still ships. Do not troubleshoot Twilio on stage.
-
-**Deliberately NOT in P6:** production-grade Twilio (that's Phase 2 per Roadmap), verified business number, opt-in flow automation, message template approvals.
+**Deliberately NOT in P6:** multi-sheet uploads, per-row partial success, upload history/versioning UI, agent-scoped inventory routing (single pilot SME only).
 
 ---
 
@@ -399,7 +395,7 @@ Feature-phased, not owner-phased. Each phase has multiple owners working in para
 | P3 | Arham (agent + tools + Qdrant) | — | Baneen (spot-check outputs) |
 | P4 | Arham (read endpoints) | Ayesha (all dashboard screens) | Baneen (audit drawer copy) |
 | P5 | — | Ayesha (Lighthouse pass, strings polish) | Baneen (eval corpus + CI gate) |
-| P6 | Arham (Twilio wiring the night before) | — | — |
+| P6 | Arham (ingestion service + endpoint) | Ayesha (upload page + proxy route) | — |
 
 **Escalations per Team.md:** scope conflict → Arham. What "correct" means → Baneen. UX/memory design → Ayesha.
 
@@ -419,9 +415,9 @@ Rough phase durations, honest estimate assuming 3 people ~40h/week:
 | P3 | 5 days | Largest phase. Agent loop + all 5 tools + Qdrant + audit. |
 | P4 | 4 days | Five screens + audit drawer. |
 | P5 | 3 days | Eval, polish, rehearsal. |
-| P6 | 4 hours | If disciplines held. |
+| P6 | 2 days | Upload endpoint + parsing/validation + inventory page. |
 
-**Total: ~19 days sustained.** Add 30% for reality (~25 days). If hackathon runway is shorter, P6 goes first, then P5 polish is trimmed.
+**Total: ~21 days sustained.** Add 30% for reality (~27 days). If hackathon runway is shorter, P5 polish is trimmed first; P6 is no longer the optional one to cut since it's now a core MVP phase.
 
 ---
 
@@ -437,7 +433,7 @@ Before starting phase N, the following must exist:
 | P3 | `tools_spec.md`, `agent_prompts.md`, `seed_data.md` | Above + all three |
 | P4 | `dashboard_spec.md` §3.2–3.5, `api-contract.md` §2 | Above + final strings pass |
 | P5 | `eval_spec.md` | Above + eval spec |
-| P6 | Twilio WA section of `env_setup.md` §4.6 | Above (no new MDs) |
+| P6 | `phase/P6.md` (design), updated `tools_spec.md`/`api-contract.md`/`dashboard_spec.md` | Above + `phase/P6.md` |
 
 **Any phase started before its required specs exist = it's slower, not faster.**
 
@@ -470,7 +466,7 @@ Documented so nobody "helpfully" adds them mid-phase:
 | Multi-tenancy code path | Phase 2 |
 | Enterprise SSO | Phase 3 |
 | Tax Reminder Agent | Phase 1 (post-hackathon pilot) |
-| Excel re-upload from dashboard | Phase 1 |
+| Demo-day WhatsApp flip (judge messages agent from real WhatsApp) | `MVP_v2.md` |
 
 ---
 
@@ -484,6 +480,7 @@ Documented so nobody "helpfully" adds them mid-phase:
 - `env_setup.md` — dev + demo env
 - `Roadmap.md` (vault) — post-MVP phases (Phase 1–4) — this doc is upstream of Roadmap Phase 1
 - `Blockers.md` (vault) — non-code blockers, reversal triggers
+- `MVP_v2.md` — WhatsApp flip and future post-v1 phases
 
 ---
 
@@ -493,3 +490,4 @@ Documented so nobody "helpfully" adds them mid-phase:
 |---|---|---|
 | 2026-07-23 | Initial draft — 7 phases (P0–P6), feature-sliced, widget-first + Cohere + demo-day WA flip locked in per Arham's calls. | Arham |
 | 2026-07-24 | P0 containerized per Arham's call: `docker-compose.dev.yml` runs `db` (local Postgres) + `backend` + `web`. P0 files-touched/done-means updated; docker-compose files moved to `infra/` (CLAUDE.md §4 location, not the original root path this doc specified). | Arham |
+| 2026-07-24 | P6 swapped: was "Demo-day WhatsApp flip (optional)", now "Excel inventory upload" (design in `phase/P6.md`) — a core, non-optional MVP v1 phase. WhatsApp flip demoted to `MVP_v2.md`. Ownership, timeline, and doc-handoff tables updated accordingly. | Arham |
