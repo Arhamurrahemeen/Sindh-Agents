@@ -104,7 +104,9 @@ export default function LoginPage() {
                   autoFocus
                   placeholder="+92 3XX XXXXXXX"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) =>
+                    setPhone(e.target.value.replace(/[^\d+]/g, ""))
+                  }
                 />
               </div>
               {error ? (
