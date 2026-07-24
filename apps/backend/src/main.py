@@ -8,7 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.base import BaseHTTPMiddleware
 
 from src.api.agents import router as agents_router
+from src.api.audit import router as audit_router
 from src.api.auth import router as auth_router
+from src.api.conversations import router as conversations_router
 from src.api.widget import router as widget_router
 from src.config import settings
 from src.errors import ApiError, api_error_handler, validation_error_handler
@@ -34,6 +36,8 @@ app.add_exception_handler(RequestValidationError, validation_error_handler)  # t
 app.include_router(auth_router, prefix="/api/auth")
 app.include_router(widget_router, prefix="/api/widget")
 app.include_router(agents_router, prefix="/api/agents")
+app.include_router(conversations_router, prefix="/api/conversations")
+app.include_router(audit_router, prefix="/api/audit")
 
 app.add_middleware(
     CORSMiddleware,

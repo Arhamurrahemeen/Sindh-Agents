@@ -120,6 +120,83 @@ export const agentsResponseSchema = z.object({
 });
 export type AgentsResponse = z.infer<typeof agentsResponseSchema>;
 
+export const conversationsResponseSchema = z.object({
+  ok: z.literal(true),
+  data: z.object({
+    conversations: z.array(
+      z.object({
+        id: z.string(),
+        buyerName: z.string(),
+        buyerPhone: z.string(),
+        lastMessagePreview: z.string(),
+        lastMessageAt: z.string(),
+        unread: z.boolean(),
+        flagged: z.boolean(),
+        agentName: z.string(),
+      }),
+    ),
+    total: z.number(),
+    nextCursor: z.string().nullable(),
+  }),
+});
+export type ConversationsResponse = z.infer<typeof conversationsResponseSchema>;
+
+export const conversationDetailResponseSchema = z.object({
+  ok: z.literal(true),
+  data: z.object({
+    id: z.string(),
+    buyer: z.object({
+      name: z.string(),
+      phone: z.string(),
+      firstSeenAt: z.string(),
+    }),
+    agent: z.object({
+      id: z.string(),
+      nameUrdu: z.string(),
+    }),
+    messages: z.array(
+      z.object({
+        id: z.string(),
+        sender: z.enum(["buyer", "agent"]),
+        text: z.string(),
+        textOriginal: z.string().nullable().optional(),
+        timestamp: z.string(),
+        auditMessageId: z.string().nullable().optional(),
+      }),
+    ),
+  }),
+});
+export type ConversationDetailResponse = z.infer<
+  typeof conversationDetailResponseSchema
+>;
+
+export const flagResponseSchema = z.object({
+  ok: z.literal(true),
+  data: z.object({ id: z.string(), flagged: z.boolean() }),
+});
+export type FlagResponse = z.infer<typeof flagResponseSchema>;
+
+export const auditResponseSchema = z.object({
+  ok: z.literal(true),
+  data: z.object({
+    messageId: z.string(),
+    buyerMessage: z.object({ text: z.string(), timestamp: z.string() }),
+    parsedIntent: z.string(),
+    toolCalls: z.array(
+      z.object({
+        name: z.string(),
+        inputs: z.record(z.string(), z.unknown()),
+        outputs: z.unknown(),
+        latencyMs: z.number(),
+      }),
+    ),
+    agentReply: z.object({ text: z.string(), timestamp: z.string() }),
+    model: z.string(),
+    totalLatencyMs: z.number(),
+  }),
+});
+export type AuditResponse = z.infer<typeof auditResponseSchema>;
+
 export const widgetInboundResponseSchema = z.object({
   ok: z.literal(true),
   data: z.object({ accepted: z.literal(true), messageId: z.string() }),

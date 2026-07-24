@@ -1,5 +1,6 @@
 import json
 from dataclasses import dataclass
+from datetime import datetime
 
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -19,6 +20,20 @@ class ToolCallRecord:
 class AgentReplyResult:
     message_id: str
     audit_id: str
+
+
+@dataclass
+class AuditDetail:
+    message_id: str
+    buyer_message_text: str
+    buyer_message_timestamp: datetime
+    parsed_intent: str
+    tool_calls: list[dict[str, object]]
+    agent_reply_text: str
+    agent_reply_timestamp: datetime
+    model: str
+    total_latency_ms: int
+    created_at: datetime
 
 
 class AuditRepository:
@@ -97,3 +112,40 @@ class AuditRepository:
 
         await self.db.commit()
         return AgentReplyResult(message_id=message_id, audit_id=audit_id)
+
+    async def get_by_message_id(self, message_id: str, sme_id: str) -> AuditDetail | None:
+        # ae.message_id references the AGENT reply only (audit_only_for_agent constraint),
+        # so a buyer message_id naturally yields no row here — matches api-contract.md §2.4's
+        # "belongs to a buyer message" 404 case without a separate check.
+        row = (
+            await self.db.execute(
+                text(
+                    """
+                    SELECT ae.message_id, ae.parsed_intent, ae.tool_calls, ae.agent_reply_text,
+                           ae.model, ae.total_latency_ms, ae.created_at,
+                           agent_msg.timestamp_ts AS agent_reply_timestamp,
+                           buyer_msg.text AS buyer_message_text,
+                           buyer_msg.timestamp_ts AS buyer_message_timestamp
+                    FROM audit_entries ae
+                    JOIN messages agent_msg ON agent_msg.id = ae.message_id
+                    JOIN messages buyer_msg ON buyer_msg.id = ae.buyer_message_id
+                    WHERE ae.message_id = :message_id AND ae.sme_id = :sme_id
+                    """
+                ),
+                {"message_id": message_id, "sme_id": sme_id},
+            )
+        ).first()
+        if row is None:
+            return None
+        return AuditDetail(
+            message_id=str(row.message_id),
+            buyer_message_text=row.buyer_message_text,
+            buyer_message_timestamp=row.buyer_message_timestamp,
+            parsed_intent=row.parsed_intent,
+            tool_calls=row.tool_calls,
+            agent_reply_text=row.agent_reply_text,
+            agent_reply_timestamp=row.agent_reply_timestamp,
+            model=row.model,
+            total_latency_ms=row.total_latency_ms,
+            created_at=row.created_at,
+        )

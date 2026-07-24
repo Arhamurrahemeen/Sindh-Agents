@@ -28,7 +28,69 @@ export const strings = {
   },
   "home.greeting": { ur: "Assalam-o-alaikum, {name}", en: "Hello, {name}" },
   "home.noAgents": { ur: "Abhi tak koi agent nahi.", en: "No agents yet." },
+  "home.agentsTitle": { ur: "Aap ke agents", en: "Your agents" },
+  "home.agentStatus.live": {
+    ur: "Kaam kar raha hai",
+    en: "Currently active",
+  },
+  "home.agentStatus.paused": { ur: "Ruka hua hai", en: "Paused" },
+  "home.recentConvos": {
+    ur: "Haal hi ki baat cheet",
+    en: "Recent conversations",
+  },
+  "home.viewAll": { ur: "Sab dekhein →", en: "View all →" },
+  "home.msgsToday": { ur: "{n} messages aaj", en: "{n} messages today" },
   "header.logout": { ur: "Logout", en: "Log out" },
+  "convos.searchPlaceholder": {
+    ur: "Buyer ka naam ya number dhundein",
+    en: "Search by buyer name or number",
+  },
+  "convos.tabAll": { ur: "Sab", en: "All" },
+  "convos.tabUnread": { ur: "Naye", en: "Unread" },
+  "convos.tabFlagged": { ur: "Nishaan lagaye hue", en: "Flagged" },
+  "convos.empty": {
+    ur: "Koi conversation nahi mila.",
+    en: "No conversations found.",
+  },
+  "convos.flagAction": { ur: "Nishaan lagayein", en: "Flag" },
+  "convos.unflagAction": { ur: "Nishaan hatayein", en: "Unflag" },
+  "convos.flaggedBadge": { ur: "Nishaan lagaya gaya", en: "Flagged" },
+  "convo.agentPill": {
+    ur: "Agent: {agentNameUrdu}",
+    en: "Agent: {agentNameUrdu}",
+  },
+  "convo.auditTooltip": {
+    ur: "Yeh jawaab kaise bana?",
+    en: "How was this reply made?",
+  },
+  "convo.readOnlyBanner": {
+    ur: "Aap yahan se reply nahi kar sakte. Agent khud kar raha hai.",
+    en: "You can't reply from here. The agent handles this itself.",
+  },
+  "convo.empty": {
+    ur: "Buyer ne abhi tak message nahi bheja.",
+    en: "Buyer hasn't messaged yet.",
+  },
+  "audit.title": {
+    ur: "Yeh jawaab kaise bana?",
+    en: "How was this reply made?",
+  },
+  "audit.understanding": {
+    ur: "Agent ne yeh samjha: {parsedIntent}",
+    en: "The agent understood: {parsedIntent}",
+  },
+  "audit.toolsTitle": { ur: "Tools istemaal hue", en: "Tools called" },
+  "audit.replyTitle": { ur: "Agent ka jawaab", en: "Agent's reply" },
+  "audit.timingTitle": { ur: "Waqt lagaya", en: "Time taken" },
+  "audit.modelTitle": { ur: "Model istemaal hua", en: "Model used" },
+  "audit.flagButton": {
+    ur: "Yeh galat lag raha hai? Nishan lagayein",
+    en: "Does this look wrong? Flag it",
+  },
+  "audit.notFound": {
+    ur: "Audit record nahi mila.",
+    en: "Audit record not found.",
+  },
   "widget.greeting": {
     ur: "Assalam-o-alaikum! Kya madad chahiye?",
     en: "Hello! How can we help?",

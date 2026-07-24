@@ -17,6 +17,15 @@ class Message:
     is_pending: bool
 
 
+@dataclass
+class ThreadMessage:
+    id: str
+    sender: str
+    text: str
+    text_original: str | None
+    timestamp_ts: datetime
+
+
 class MessageRepository:
     def __init__(self, db: AsyncSession) -> None:
         self.db = db
@@ -75,6 +84,39 @@ class MessageRepository:
                 text=row.text,
                 timestamp_ts=row.timestamp_ts,
                 is_pending=row.is_pending,
+            )
+            for row in rows
+        ]
+
+    async def list_for_conversation(
+        self, conversation_id: str, sme_id: str, before: datetime | None, limit: int
+    ) -> list[ThreadMessage]:
+        # api-contract.md §2.3 — full ordered thread, timestamp ASC (display order).
+        conditions = ["conversation_id = :conversation_id", "sme_id = :sme_id"]
+        params: dict[str, object] = {
+            "conversation_id": conversation_id,
+            "sme_id": sme_id,
+            "limit": limit,
+        }
+        if before is not None:
+            conditions.append("timestamp_ts < :before")
+            params["before"] = before
+        where = " AND ".join(conditions)
+
+        rows = await self.db.execute(
+            text(
+                "SELECT id, sender, text, text_original, timestamp_ts "
+                f"FROM messages WHERE {where} ORDER BY timestamp_ts ASC LIMIT :limit"
+            ),
+            params,
+        )
+        return [
+            ThreadMessage(
+                id=str(row.id),
+                sender=row.sender,
+                text=row.text,
+                text_original=row.text_original,
+                timestamp_ts=row.timestamp_ts,
             )
             for row in rows
         ]

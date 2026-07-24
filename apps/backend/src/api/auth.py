@@ -13,6 +13,7 @@ from src.repositories.otp_repository import OtpRepository
 from src.repositories.session_repository import SessionRepository
 from src.repositories.sme_repository import SmeRepository
 from src.services import otp_service
+from src.services.phone import mask_phone
 
 router = APIRouter()
 
@@ -64,11 +65,6 @@ class MeData(BaseModel):
 class MeResponse(BaseModel):
     ok: bool = True
     data: MeData
-
-
-def mask_phone(phone: str) -> str:
-    # api-contract.md §1.4 example format: "+92 3XX ****172"
-    return f"+92 {phone[3]}XX ****{phone[-3:]}"
 
 
 @router.post("/send-otp")
