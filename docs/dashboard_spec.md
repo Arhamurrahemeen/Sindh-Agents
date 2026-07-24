@@ -62,8 +62,9 @@ Five screens. Every screen has a route, a mobile primary task, and a data contra
 | 3 | `/conversations` | Conversation list | Find a specific buyer's chat | Protected |
 | 4 | `/conversations/[id]` | Conversation detail | Read a chat + inspect any agent reply | Protected |
 | 5 | `/conversations/[id]/audit/[messageId]` | Audit ledger view (drawer) | See *why* the agent said X | Protected |
+| 6 | `/inventory` | Stock sheet upload | Replace the SME's Excel stock sheet | Protected |
 
-**Explicitly not shipping in MVP:** settings page, billing page, user profile, notification preferences, agent creation flow (agents are provisioned via backend seed for pilot SMEs).
+**Explicitly not shipping in MVP:** settings page, billing page, user profile, notification preferences, agent creation flow (agents are provisioned via backend seed for pilot SMEs). `/inventory` (Phase 6, see `phase/P6.md`) is a narrow, separate thing from that settings page — no billing/profile/notification prefs live there, only the stock-sheet upload flow.
 
 ---
 
@@ -349,6 +350,40 @@ type AuditResponse = {
 - Drawer opens from bottom on mobile (≤ 768px), takes 90vh.
 - Tool call rows collapsed by default. Tap to expand.
 - ≤1 tap from any agent message = magnifier tap opens drawer. Drawer close = tap outside or drag down.
+
+---
+
+### 3.6 `/inventory` — Stock sheet upload
+
+**Purpose:** SME replaces their Excel stock sheet from the dashboard instead of only via seed script. Full design in `phase/P6.md`.
+
+**Layout:** Single card, mobile-first. Reachable from the home page's agent card via an "Inventory" link.
+
+**States:**
+- **Empty** — no upload yet this session: "Abhi tak koi stock sheet upload nahi hui."
+- **Uploading** — spinner text, file input disabled.
+- **Success** — "N items upload ho gaye" + filename + ingested timestamp. If the uploaded file matched the already-active snapshot byte-for-byte, an additional no-op notice is shown instead of implying anything changed.
+- **Validation error** — the specific row/column problem from the backend (e.g. "Row 4: Stock must be a whole number"), shown verbatim — not a generic "failed" message.
+
+**Components:**
+- Native `<input type="file" accept=".xlsx">` — no dependency for file pickers.
+- `Button` (shadcn) for "upload another file" in the success state.
+
+**Data contract:**
+```typescript
+// POST /api/excel/reingest — multipart/form-data, field "file"
+type ReingestResponse = {
+  ok: true;
+  data: {
+    snapshotId: string;
+    itemCount: number;
+    ingestedAt: string;
+    isNoop: boolean;
+  };
+};
+```
+
+**Mobile constraints:** file picker and states fit 360px viewport without horizontal scroll; upload starts immediately on file selection (no separate submit tap).
 
 ---
 

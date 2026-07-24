@@ -473,6 +473,40 @@ type FlagResponse = {
 
 ---
 
+### 2.6 `POST /api/excel/reingest`
+
+SME uploads a replacement stock sheet from the `/inventory` dashboard page. Full design in `phase/P6.md`.
+
+**Auth:** session required.
+
+**Request:** `multipart/form-data`, field name `file`, `.xlsx` only.
+
+**Success (200):**
+```typescript
+type ReingestResponse = {
+  ok: true;
+  data: {
+    snapshotId: string;
+    itemCount: number;
+    ingestedAt: string;
+    isNoop: boolean;          // true if the uploaded file's hash matched the active snapshot — nothing changed
+  };
+};
+```
+
+**Errors:**
+- `400 BAD_REQUEST` — missing required column, bad unit value, negative stock/price, non-integer stock, empty file, non-`.xlsx` file. `message` names the specific row/column problem (e.g. "Row 4: Stock must be a whole number") and is rendered verbatim in the upload UI — not replaced with a canned string.
+- `401 UNAUTHENTICATED` — no/invalid session.
+- `413 PAYLOAD_TOO_LARGE` — file exceeds the 2MB cap.
+
+**Backend behavior:**
+- SHA-256 of the raw file bytes is checked against the current active snapshot's `snapshot_hash`; an identical re-upload is a no-op.
+- Otherwise: deactivate the current active snapshot, insert the new one as active, bulk-insert its rows — all in one DB transaction (`ExcelStockRepository.replace_snapshot`).
+- A bad row rejects the whole file; nothing is partially written. Row cap: 500.
+- `read_excel_stock` / `ExcelStockRepository.list_for_sme` are unchanged — they already read the active snapshot, so newly ingested rows apply with zero changes on that side.
+
+---
+
 ## 3. Widget (buyer-facing, unauthenticated)
 
 The widget contract is deliberately shaped like Meta's WhatsApp Cloud API webhook payload. Phase 2 flips the `messaging_product` field and points the same handler at Meta's webhook URL — no other changes.
@@ -643,10 +677,11 @@ Drawer renders tool calls, model, timing
 | GET | `/api/conversations/[id]` | session | — | `ConversationDetailResponse` | 2.3 |
 | GET | `/api/audit/[messageId]` | session | — | `AuditResponse` | 2.4 |
 | POST | `/api/conversations/[id]/flag` | session | `FlagRequest` | `FlagResponse` | 2.5 |
+| POST | `/api/excel/reingest` | session | multipart `file` | `ReingestResponse` | 2.6 |
 | POST | `/api/widget/inbound` | public | `WidgetInboundRequest` | `WidgetInboundResponse` | 3.1 |
 | GET | `/api/widget/outbound` | public | — | `WidgetOutboundResponse` | 3.2 |
 
-Total: 11 routes.
+Total: 12 routes.
 
 ---
 

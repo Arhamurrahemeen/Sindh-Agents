@@ -26,15 +26,10 @@ export class ApiError extends Error {
   }
 }
 
-export async function apiFetch<T>(
-  path: string,
+async function parseApiResponse<T>(
+  response: Response,
   schema: z.ZodType<T>,
-  init?: RequestInit,
 ): Promise<T> {
-  const response = await fetch(path, {
-    ...init,
-    headers: { "content-type": "application/json", ...init?.headers },
-  });
   const json: unknown = await response.json();
 
   if (!response.ok) {
@@ -58,6 +53,30 @@ export async function apiFetch<T>(
     });
   }
   return parsed.data;
+}
+
+export async function apiFetch<T>(
+  path: string,
+  schema: z.ZodType<T>,
+  init?: RequestInit,
+): Promise<T> {
+  const response = await fetch(path, {
+    ...init,
+    headers: { "content-type": "application/json", ...init?.headers },
+  });
+  return parseApiResponse(response, schema);
+}
+
+export async function apiFetchFormData<T>(
+  path: string,
+  schema: z.ZodType<T>,
+  formData: FormData,
+): Promise<T> {
+  // No content-type header — the browser sets multipart/form-data with the
+  // correct boundary itself. apiFetch() can't be reused here: it always
+  // forces content-type: application/json.
+  const response = await fetch(path, { method: "POST", body: formData });
+  return parseApiResponse(response, schema);
 }
 
 export const sendOtpResponseSchema = z.object({
@@ -201,6 +220,17 @@ export const widgetInboundResponseSchema = z.object({
   ok: z.literal(true),
   data: z.object({ accepted: z.literal(true), messageId: z.string() }),
 });
+
+export const reingestResponseSchema = z.object({
+  ok: z.literal(true),
+  data: z.object({
+    snapshotId: z.string(),
+    itemCount: z.number(),
+    ingestedAt: z.string(),
+    isNoop: z.boolean(),
+  }),
+});
+export type ReingestResponse = z.infer<typeof reingestResponseSchema>;
 
 export const widgetOutboundResponseSchema = z.object({
   messages: z.array(

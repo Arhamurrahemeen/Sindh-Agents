@@ -103,6 +103,37 @@ export const strings = {
     ur: "Server abhi busy hai, thodi der mein try karein.",
     en: "Server is busy right now, try again shortly.",
   },
+  "inventory.title": { ur: "Stock sheet", en: "Stock sheet" },
+  "inventory.empty": {
+    ur: "Abhi tak koi stock sheet upload nahi hui.",
+    en: "No stock sheet uploaded yet.",
+  },
+  "inventory.selectFile": {
+    ur: ".xlsx file chunein",
+    en: "Choose an .xlsx file",
+  },
+  "inventory.uploading": { ur: "Upload ho raha hai...", en: "Uploading..." },
+  "inventory.successTitle": {
+    ur: "{n} items upload ho gaye",
+    en: "{n} items uploaded",
+  },
+  "inventory.successSubtitle": {
+    ur: "{filename} — {timestamp}",
+    en: "{filename} — {timestamp}",
+  },
+  "inventory.noopNotice": {
+    ur: "Yeh file pehle se active hai, koi tabdeeli nahi hui.",
+    en: "This file matches what's already active — nothing changed.",
+  },
+  "inventory.uploadAnother": {
+    ur: "Doosri file upload karein",
+    en: "Upload another file",
+  },
+  "inventory.genericError": {
+    ur: "Kuch ghalat ho gaya. Dobara try karein.",
+    en: "Something went wrong. Try again.",
+  },
+  "inventory.backToHome": { ur: "← Wapas jayein", en: "← Back" },
 } as const;
 
 export type StringKey = keyof typeof strings;

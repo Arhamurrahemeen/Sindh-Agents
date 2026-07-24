@@ -165,9 +165,22 @@ Narrator says: "Yeh item stock mein nahi mila. Kuch aur poochein?" ("Didn't find
 
 ### Excel source of truth
 
-MVP: SME's Excel file is uploaded once during onboarding, stored as a snapshot in the DB (see `db_schema.md` §`excel_snapshots`). Tool reads the snapshot, not the raw file — file I/O is not on the request path.
+SME's Excel file is stored as a snapshot in the DB (see `db_schema.md` §`excel_snapshots`). Tool reads the snapshot, not the raw file — file I/O is not on the request path.
 
-Reingest on Excel re-upload happens via `POST /api/excel/reingest` (out of scope for MVP; pilot SMEs re-upload manually, we re-run seed script).
+Reingest on Excel re-upload happens via `POST /api/excel/reingest` (Phase 6, see `phase/P6.md`) — session-authenticated multipart upload from the dashboard's `/inventory` page. Replaces the whole snapshot; does not touch `read_excel_stock`/`ExcelStockRepository.list_for_sme`.
+
+**Column mapping** (header row, case-insensitive):
+
+| Excel column | DB field | Notes |
+|---|---|---|
+| SKU | `sku_canonical` | required |
+| Aliases | `sku_aliases` | optional, comma-separated → parsed to `text[]` |
+| Stock | `stock` | required, integer ≥ 0 |
+| Unit | `unit` | required, one of `pieces/meters/kg/liters/boxes` (case-insensitive) |
+| Price | `price_per_unit` | required, ≥ 0, rounded to 2dp |
+| Reorder Threshold | `reorder_threshold` | optional, default 0 |
+
+**Behavior:** SHA-256 of the raw file bytes is compared against the current active snapshot's `snapshot_hash`. If it matches, the upload is a no-op (`isNoop: true` in the response, nothing re-written). Otherwise: deactivate the current active snapshot, insert a new one as active, bulk-insert its rows — all in one transaction. A bad row (missing column, negative stock/price, bad unit, non-integer stock) rejects the whole file; nothing is partially written. File size capped at 2MB, row count capped at 500.
 
 ---
 

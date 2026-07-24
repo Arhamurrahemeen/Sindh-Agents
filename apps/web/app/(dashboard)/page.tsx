@@ -68,6 +68,12 @@ export default async function HomePage() {
                   >
                     {t("home.viewAll")}
                   </Link>
+                  <Link
+                    href="/inventory"
+                    className="block text-sm font-medium text-emerald-700 hover:underline"
+                  >
+                    {t("inventory.title")}
+                  </Link>
                 </CardContent>
               </Card>
             ))}

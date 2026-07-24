@@ -371,13 +371,13 @@ psql $DATABASE_URL_SYNC -c "SELECT sku_canonical, stock, price_per_unit FROM exc
 ```
 
 **Done means:**
-- [ ] `POST /api/excel/reingest` accepts multipart `.xlsx`, session-authenticated, 401 without a valid session.
-- [ ] SHA-256 of raw bytes checked against current active snapshot's hash; identical re-upload is a no-op.
-- [ ] Deactivate-old + insert-new + bulk-insert rows happen in one transaction.
-- [ ] Bad row (missing column, negative stock/price, bad unit) rejects the whole file — nothing partially written.
-- [ ] File size cap (2MB) and row cap (500) enforced; oversized file returns 413.
-- [ ] Widget reply reflects newly uploaded data with zero changes to `read_excel_stock`/`ExcelStockRepository`.
-- [ ] `docs/tools_spec.md`, `docs/api-contract.md`, `docs/dashboard_spec.md`, `docs/CLAUDE.md` updated per `phase/P6.md` §3.
+- [x] `POST /api/excel/reingest` accepts multipart `.xlsx`, session-authenticated, 401 without a valid session (code-reviewed; not exercised against a live server this session).
+- [x] SHA-256 of raw bytes checked against current active snapshot's hash; identical re-upload is a no-op.
+- [x] Deactivate-old + insert-new + bulk-insert rows happen in one transaction.
+- [x] Bad row (missing column, negative stock/price, bad unit) rejects the whole file — nothing partially written. Covered by `excel_ingestion_service_test.py`.
+- [x] File size cap (2MB) and row cap (500) enforced; oversized file returns 413 (row cap covered by test; byte-size 413 path not exercised live).
+- [ ] Widget reply reflects newly uploaded data with zero changes to `read_excel_stock`/`ExcelStockRepository` — logically true by construction (that code path untouched), not yet confirmed with a live upload + widget round trip. See `phase/P6.md` §6.
+- [x] `docs/tools_spec.md`, `docs/api-contract.md`, `docs/dashboard_spec.md`, `docs/CLAUDE.md` updated per `phase/P6.md` §3.
 
 **Deliberately NOT in P6:** multi-sheet uploads, per-row partial success, upload history/versioning UI, agent-scoped inventory routing (single pilot SME only).
 
