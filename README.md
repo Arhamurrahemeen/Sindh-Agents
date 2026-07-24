@@ -112,6 +112,8 @@ cp .env.example .env
 
 Three containers: `db`, `backend`, `web`. No Python or Node version to manage locally.
 
+**First-time setup** — migrations must run once `db` is healthy but before `backend` starts serving, so that's a separate one-off step:
+
 ```bash
 cd infra
 docker compose -f docker-compose.dev.yml up -d db
@@ -119,8 +121,15 @@ docker compose -f docker-compose.dev.yml run --rm backend alembic upgrade head
 docker compose -f docker-compose.dev.yml up -d backend web
 ```
 
+**Every time after** — migrations already applied, `db_data` volume persists them, so one command brings up all three services:
+
+```bash
+cd infra
+docker compose -f docker-compose.dev.yml up -d
+```
+
 - `db` publishes on **5433** (not 5432) to avoid clashing with any other local Postgres.
-- `backend` on **8000**, `web` on **3000**.
+- `backend` on **8001** (host) → 8000 (container) — remapped from 8000 since that port is commonly taken by other local projects. `web` on **3000**.
 - Source is bind-mounted, so edits hot-reload without rebuild.
 
 Rebuild only when `pyproject.toml` or `package.json` changes:
@@ -177,7 +186,8 @@ npm run dev
 ### Verify
 
 ```bash
-curl http://localhost:8000/health
+curl http://localhost:8001/health   # Docker — see backend port note above
+# curl http://localhost:8000/health  # Native
 # {"ok": true}
 ```
 

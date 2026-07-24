@@ -384,7 +384,7 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "8000:8000"
+      - "8001:8000"   # host 8001 → container 8000; 8000 is often taken by other local projects
     volumes:
       - ../apps/backend/src:/app/src
     command: uvicorn src.main:app --reload --host 0.0.0.0 --port 8000

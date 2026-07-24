@@ -345,8 +345,12 @@ cd infra
 docker compose -f docker-compose.dev.yml up -d db
 docker compose -f docker-compose.dev.yml run --rm backend alembic upgrade head
 docker compose -f docker-compose.dev.yml up -d backend web
-curl http://localhost:8000/health
+curl http://localhost:8001/health
 ```
+
+`backend` binds host port **8001** (container port stays 8000) — remapped from 8000 since that
+port is commonly taken by other local projects. Native `uvicorn` below is unaffected and still
+runs on 8000.
 
 `backend`/`web` bind-mount their source, so edits reload without a rebuild; rebuild only when
 `pyproject.toml`/`package.json` changes (`docker compose -f docker-compose.dev.yml build`).
@@ -469,3 +473,4 @@ Do not silently adapt to plugin conventions that break the invariants in §7.
 | 2026-07-23 | Initial draft. Prescriptive per Arham's call. Sole source-of-truth for repo conventions. |
 | 2026-07-23 | Swap OpenAI embeddings → Cohere `embed-multilingual-v3.0` (better Roman Urdu, no OpenAI key needed). Tighten §7.5 with three-disciplines rule for widget/WA parity. |
 | 2026-07-24 | Containerize local dev per Arham's call: `docker-compose.dev.yml` now runs `db` (local Postgres) + `backend` + `web`, not just backend. §3, §4, §10 updated. Both Dockerfiles added and boot-verified end-to-end (migration, seed, `/health`, frontend root all confirmed working in containers). |
+| 2026-07-24 | `backend`'s Docker host port remapped 8000 → 8001 (container port unchanged) — 8000 was already bound by an unrelated local project. §10 updated. |
