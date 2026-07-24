@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: ../apps/backend
+    env_file:
+      - /run/secrets/staging.env
+    environment:
+      - NODE_ENV=staging
+    ports:
+      - "8000:8000"
+
+  web:
+    build: ../apps/web
+    env_file:
+      - /run/secrets/staging.env
+    environment:
+      - NODE_ENV=staging
+      - BACKEND_PUBLIC_URL=http://backend:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend

@@ -1,0 +1,28 @@
+# Env files — only .env.example is committed
+.env
+.env.local
+.env.*.local
+staging.env
+production.env
+
+# Node
+node_modules/
+.next/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Logs and coverage
+logs/
+*.log
+coverage/
+.coverage
+htmlcov/
+
+# OS
+.DS_Store
+Thumbs.db

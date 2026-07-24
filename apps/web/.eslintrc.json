@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "extends": ["next/core-web-vitals"],
+  "plugins": ["import"],
+  "ignorePatterns": [".next/", "node_modules/"],
+  "rules": {
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling", "index"]
+        ],
+        "pathGroups": [{ "pattern": "@/**", "group": "internal" }],
+        "newlines-between": "always"
+      }
+    ]
+  }
+}
